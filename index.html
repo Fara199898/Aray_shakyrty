@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сені кездесуге шақырамын</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@400;600;700&display=swap&subset=cyrillic,cyrillic-ext" rel="stylesheet">
+<style>
+:root{
+  --wine:#4A1428; --wine-2:#6B1D3A; --petal:#F4B6C0; --paper:#FFF6F3;
+  --ink:#2A0E1A; --sage:#8FA68A; --line:rgba(74,20,40,.18);
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+  --sans:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{background:var(--wine);color:var(--paper);font-family:var(--sans);line-height:1.5;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--petal);outline-offset:3px}
+.hidden{display:none!important}
+main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
+
+/* ---------- Creator ---------- */
+.creator h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,7vw,2.5rem);line-height:1.15;margin-bottom:8px}
+.creator .lead{opacity:.85;margin-bottom:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600;margin-bottom:6px;font-size:.95rem}
+.field small{display:block;opacity:.7;margin-top:4px;font-size:.82rem}
+.field input,.field textarea{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(244,182,192,.35);
+  background:rgba(255,246,243,.07);color:var(--paper)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,246,243,.45)}
+.field input[type=date],.field input[type=time]{color-scheme:dark}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;
+  padding:14px 22px;border-radius:999px;font-weight:700;background:var(--petal);color:var(--wine);
+  transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#fbc9d1}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--paper);border:1.5px solid rgba(244,182,192,.5)}
+.btn.full{width:100%}
+.stack{display:grid;gap:10px;margin-top:22px}
+.linkbox{margin-top:22px;padding:16px;border-radius:14px;background:rgba(255,246,243,.08);border:1.5px dashed rgba(244,182,192,.5)}
+.linkbox p{font-weight:600;margin-bottom:8px}
+.linkbox code{display:block;word-break:break-all;font-size:.8rem;opacity:.85;margin-bottom:12px;max-height:5.2em;overflow:auto}
+.note{font-size:.85rem;opacity:.7;margin-top:12px}
+
+/* ---------- Envelope ---------- */
+.scene{min-height:100svh;display:grid;place-items:center;padding:24px 20px;text-align:center}
+.scene .from{font-family:var(--serif);font-style:italic;font-size:1.15rem;opacity:.9;margin-bottom:26px}
+.envelope{position:relative;width:min(320px,82vw);aspect-ratio:3/2;margin:0 auto;cursor:pointer;
+  background:#F3D3D3;border-radius:6px;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.envelope::before{content:"";position:absolute;inset:0;border-radius:6px;
+  background:linear-gradient(135deg,transparent 49.6%,rgba(74,20,40,.12) 50%) left/50% 100% no-repeat,
+             linear-gradient(225deg,transparent 49.6%,rgba(74,20,40,.12) 50%) right/50% 100% no-repeat}
+.flap{position:absolute;left:0;right:0;top:0;height:62%;background:#E9BDC2;
+  clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s cubic-bezier(.6,0,.3,1)}
+.seal{position:absolute;left:50%;top:62%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#a8304f,var(--wine-2) 70%);display:grid;place-items:center;
+  font-size:1.5rem;box-shadow:0 4px 10px rgba(0,0,0,.35);transition:opacity .3s ease;
+  animation:beat 1.8s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.envelope.open .flap{transform:rotateX(180deg)}
+.envelope.open .seal{opacity:0;animation:none}
+.tap{margin-top:26px;opacity:.8}
+
+/* ---------- Invitation card ---------- */
+.card{background:var(--paper);color:var(--ink);border-radius:18px;padding:34px 26px 28px;
+  box-shadow:0 30px 60px rgba(0,0,0,.4);animation:rise .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.card h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,7vw,2.2rem);line-height:1.18;color:var(--wine);margin-bottom:12px}
+.card .msg{font-family:var(--serif);font-style:italic;font-size:1.08rem;margin-bottom:22px}
+.details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:22px;display:grid;gap:8px}
+.details div{display:flex;gap:12px;align-items:baseline}
+.details dt{flex:0 0 74px;color:var(--wine-2);font-weight:700;font-size:.9rem}
+.details dd{margin:0;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chips p{width:100%;font-weight:700;color:var(--wine-2);font-size:.9rem}
+.chip{border:1.5px solid var(--wine-2);background:transparent;color:var(--wine);padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:600}
+.chip[aria-pressed=true]{background:var(--wine);color:var(--paper);border-color:var(--wine)}
+.answers{position:relative;display:flex;gap:10px;flex-wrap:wrap;min-height:54px}
+.answers .btn{flex:1 1 120px;background:var(--wine);color:var(--paper)}
+.answers .btn:hover{background:var(--wine-2)}
+.answers .btn.soft{background:transparent;color:var(--wine);border:1.5px solid var(--wine-2)}
+.answers .btn.soft:hover{background:rgba(74,20,40,.07)}
+.dodge{transition:left .25s ease,top .25s ease}
+.dodge.fly{position:fixed;z-index:10;flex:none;width:auto}
+.result{text-align:center}
+.result .big{font-size:3rem;line-height:1;margin-bottom:10px}
+.result h2{margin-bottom:8px}
+.result p{margin-bottom:18px}
+.result .btn{background:var(--wine);color:var(--paper);margin-bottom:10px}
+.result .btn.soft{background:transparent;color:var(--wine);border:1.5px solid var(--wine-2)}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
+.hearts span{position:absolute;bottom:-40px;animation:float linear forwards}
+@keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ CREATOR ============ -->
+<main id="creator" class="creator hidden">
+  <h1>Кездесуге шақыру жасау 💌</h1>
+  <p class="lead">Мәліметті толтырыңыз, сілтеме алыңыз да жіберіңіз. Ол ашып, жауап береді.</p>
+
+  <div class="field"><label for="to">Кімге?</label>
+    <input id="to" placeholder="Мысалы: Айым"></div>
+  <div class="field"><label for="from">Кімнен?</label>
+    <input id="from" placeholder="Мысалы: Фархат"></div>
+  <div class="row">
+    <div class="field"><label for="date">Күні</label><input id="date" type="date"></div>
+    <div class="field"><label for="time">Уақыты</label><input id="time" type="time" value="19:00"></div>
+  </div>
+  <div class="field"><label for="place">Қайда?</label>
+    <input id="place" placeholder="Мысалы: Сырдария жағалауы"></div>
+  <div class="field"><label for="plans">Не істейміз?</label>
+    <input id="plans" placeholder="кешкі ас, серуен, кино" value="кешкі ас, серуен, кино">
+    <small>Үтірмен бөліңіз. Ол біреуін таңдайды.</small></div>
+  <div class="field"><label for="text">Жылы сөз</label>
+    <textarea id="text" rows="3" placeholder="Сенімен бір кеш өткізгім келеді...">Сенімен бір кеш өткізгім келеді. Келесің бе?</textarea></div>
+  <div class="field"><label for="phone">Жауап келетін WhatsApp нөмірі</label>
+    <input id="phone" inputmode="tel" placeholder="77012345678">
+    <small>Міндетті емес. Нөмірді 7-мен бастап, плюссіз жазыңыз. Бос қалса, ол жауапты өзі таңдаған мессенджермен жібереді.</small></div>
+
+  <div class="stack">
+    <button class="btn full" id="make">Сілтеме жасау</button>
+  </div>
+
+  <div class="linkbox hidden" id="linkbox">
+    <p>Сілтеме дайын</p>
+    <code id="linkText"></code>
+    <div class="stack" style="margin-top:0">
+      <button class="btn full" id="copy">Көшіру</button>
+      <button class="btn ghost full" id="preview">Алдын ала қарау</button>
+    </div>
+    <p class="note">Бұл файлды сайтқа (Netlify, GitHub Pages) жүктегенде ғана сілтеме басқа адамның телефонында ашылады.</p>
+  </div>
+</main>
+
+<!-- ============ ENVELOPE ============ -->
+<section id="scene" class="scene hidden">
+  <div>
+    <p class="from" id="sceneFrom"></p>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Хатты ашу">
+      <div class="flap"></div>
+      <div class="seal" aria-hidden="true">♥</div>
+    </div>
+    <p class="tap">Ашу үшін мөрді бас</p>
+  </div>
+</section>
+
+<!-- ============ INVITATION ============ -->
+<main id="invite" class="hidden">
+  <article class="card" id="card">
+    <h2 id="iTitle"></h2>
+    <p class="msg" id="iMsg"></p>
+    <dl class="details" id="iDetails"></dl>
+    <div class="chips" id="chips"></div>
+    <div class="answers" id="answers">
+      <button class="btn" id="yes">Иә, келемін</button>
+      <button class="btn soft" id="maybe">Ойланамын</button>
+      <button class="btn soft dodge" id="no">Жоқ</button>
+    </div>
+  </article>
+
+  <article class="card result hidden" id="result"></article>
+</main>
+
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  let data = null, choice = '';
+
+  /* ---------- helpers ---------- */
+  const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+  const dec = s => JSON.parse(decodeURIComponent(escape(atob(s))));
+  function fmtDate(d){
+    if(!d) return '';
+    try{
+      return new Date(d+'T12:00:00').toLocaleDateString('kk-KZ',{weekday:'long',day:'numeric',month:'long'});
+    }catch(e){return d}
+  }
+  function show(id){ ['creator','scene','invite'].forEach(x=>$(x).classList.toggle('hidden',x!==id)); window.scrollTo(0,0); }
+  function hearts(){
+    const box=$('hearts'); const sym=['♥','❤','💗','💖'];
+    for(let i=0;i<22;i++){
+      const s=document.createElement('span');
+      s.textContent=sym[i%sym.length];
+      s.style.left=Math.random()*100+'%';
+      s.style.fontSize=(16+Math.random()*26)+'px';
+      s.style.color='#F4B6C0';
+      s.style.animationDuration=(3+Math.random()*3)+'s';
+      s.style.animationDelay=(Math.random()*1.2)+'s';
+      box.appendChild(s);
+      setTimeout(()=>s.remove(),7000);
+    }
+  }
+
+  /* ---------- creator ---------- */
+  const d=$('date'); const t=new Date(); t.setDate(t.getDate()+1);
+  d.value=t.toISOString().slice(0,10);
+
+  function collect(){
+    return {
+      to:$('to').value.trim(), from:$('from').value.trim(),
+      date:$('date').value, time:$('time').value, place:$('place').value.trim(),
+      plans:$('plans').value.split(',').map(s=>s.trim()).filter(Boolean).slice(0,6),
+      text:$('text').value.trim(), phone:$('phone').value.replace(/\D/g,'')
+    };
+  }
+  function makeLink(){
+    return location.href.split('#')[0] + '#i=' + enc(collect());
+  }
+  $('make').onclick=()=>{
+    $('linkText').textContent=makeLink();
+    $('linkbox').classList.remove('hidden');
+    $('linkbox').scrollIntoView({behavior:'smooth',block:'center'});
+  };
+  $('copy').onclick=async()=>{
+    const l=makeLink();
+    try{ await navigator.clipboard.writeText(l); $('copy').textContent='Көшірілді ✓'; }
+    catch(e){ prompt('Сілтемені көшіріңіз:',l); }
+    setTimeout(()=>$('copy').textContent='Көшіру',2000);
+  };
+  $('preview').onclick=()=>{ data=collect(); startInvite(); };
+
+  /* ---------- invite ---------- */
+  function startInvite(){
+    $('sceneFrom').textContent = (data.from? data.from+' ': 'Біреу ')+'саған хат жазды';
+    $('envelope').classList.remove('open');
+    show('scene');
+  }
+  function openEnvelope(){
+    const env=$('envelope');
+    if(env.classList.contains('open')) return;
+    env.classList.add('open');
+    setTimeout(buildCard,950);
+  }
+  $('envelope').onclick=openEnvelope;
+  $('envelope').onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();openEnvelope();} };
+
+  function buildCard(){
+    $('iTitle').textContent = data.to ? data.to+', сені кездесуге шақырамын' : 'Сені кездесуге шақырамын';
+    $('iMsg').textContent = data.text || '';
+    const rows=[['Күні',fmtDate(data.date)],['Уақыты',data.time],['Орны',data.place]].filter(r=>r[1]);
+    $('iDetails').innerHTML='';
+    rows.forEach(([k,v])=>{
+      const div=document.createElement('div');
+      const dt=document.createElement('dt'); dt.textContent=k;
+      const dd=document.createElement('dd'); dd.textContent=v;
+      div.append(dt,dd); $('iDetails').appendChild(div);
+    });
+    const chips=$('chips'); chips.innerHTML=''; choice='';
+    if(data.plans && data.plans.length){
+      const p=document.createElement('p'); p.textContent='Не істейміз? Біреуін таңда:'; chips.appendChild(p);
+      data.plans.forEach(pl=>{
+        const b=document.createElement('button');
+        b.className='chip'; b.textContent=pl; b.setAttribute('aria-pressed','false');
+        b.onclick=()=>{
+          choice = choice===pl ? '' : pl;
+          chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.textContent===choice)));
+        };
+        chips.appendChild(b);
+      });
+    }
+    $('result').classList.add('hidden');
+    $('card').classList.remove('hidden');
+    resetNo();
+    show('invite');
+  }
+
+  /* “Жоқ” батырмасы қашады */
+  let dodges=0; const no=$('no');
+  const noTexts=['Жоқ','Шынымен бе?','Тағы ойлан 🥺','Бәрібір иә 💗'];
+  function resetNo(){ dodges=0; no.className='btn soft dodge'; no.removeAttribute('style'); no.textContent=noTexts[0]; }
+  function run(e){
+    if(dodges>=3) return;
+    e && e.preventDefault && e.preventDefault();
+    dodges++;
+    no.textContent=noTexts[dodges];
+    no.classList.add('fly');
+    const w=no.offsetWidth||140, h=no.offsetHeight||50;
+    no.style.left=Math.max(8,Math.random()*(innerWidth-w-16))+'px';
+    no.style.top=Math.max(8,Math.random()*(innerHeight-h-16))+'px';
+    if(dodges>=3){
+      no.className='btn soft dodge';
+      no.removeAttribute('style');
+    }
+  }
+  no.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') run(e); });
+  no.addEventListener('touchstart',run,{passive:false});
+  no.addEventListener('click',()=>{
+    if(dodges>=3) answer('yes');
+    else run();
+  });
+
+  $('yes').onclick=()=>answer('yes');
+  $('maybe').onclick=()=>answer('maybe');
+
+  /* ---------- answer ---------- */
+  function answer(kind){
+    const who=data.to||'Мен';
+    const when=[fmtDate(data.date),data.time].filter(Boolean).join(', ');
+    let text;
+    if(kind==='yes'){
+      text=`${who}: иә, келемін! 💗 ${when}${data.place?', '+data.place:''}.`+(choice?` Таңдауым: ${choice}.`:'');
+    } else {
+      text=`${who}: ойланып көрейін 🙂 Жақында жауап беремін.`;
+    }
+    const wa = data.phone ? `https://wa.me/${data.phone}?text=${encodeURIComponent(text)}`
+                          : `https://wa.me/?text=${encodeURIComponent(text)}`;
+    const tg = `https://t.me/share/url?url=${encodeURIComponent(location.href.split('#')[0])}&text=${encodeURIComponent(text)}`;
+
+    const r=$('result'); r.innerHTML='';
+    const big=document.createElement('div'); big.className='big'; big.textContent = kind==='yes'?'💗':'🌙';
+    const h=document.createElement('h2'); h.textContent = kind==='yes'?'Керемет!':'Жарайды, күтемін';
+    const p=document.createElement('p');
+    p.textContent = kind==='yes' ? 'Жауабыңды жіберіп жібер, ол күтіп отыр.' : 'Дайын болғанда хабарла.';
+    r.append(big,h,p);
+
+    const a1=document.createElement('a'); a1.className='btn full'; a1.href=wa; a1.target='_blank'; a1.rel='noopener'; a1.textContent='WhatsApp арқылы жіберу';
+    r.appendChild(a1);
+    if(!data.phone){
+      const a2=document.createElement('a'); a2.className='btn soft full'; a2.href=tg; a2.target='_blank'; a2.rel='noopener'; a2.textContent='Telegram арқылы жіберу';
+      r.appendChild(a2);
+    }
+    const c=document.createElement('button'); c.className='btn soft full'; c.textContent='Мәтінді көшіру';
+    c.onclick=async()=>{ try{await navigator.clipboard.writeText(text); c.textContent='Көшірілді ✓';}catch(e){prompt('Көшіріңіз:',text);} };
+    r.appendChild(c);
+
+    $('card').classList.add('hidden'); r.classList.remove('hidden');
+    window.scrollTo(0,0);
+    if(kind==='yes') hearts();
+  }
+
+  /* ---------- init ---------- */
+  const m=location.hash.match(/^#i=(.+)$/);
+  if(m){
+    try{ data=dec(m[1]); startInvite(); }
+    catch(e){ show('creator'); }
+  } else show('creator');
+})();
+</script>
+</body>
+</html>
