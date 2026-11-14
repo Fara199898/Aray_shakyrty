@@ -2,6 +2,7 @@
 <html lang="kk">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Сені кездесуге шақырамын</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,12 +10,14 @@
 <style>
 :root{
   --wine:#4A1428; --wine-2:#6B1D3A; --petal:#F4B6C0; --paper:#FFF6F3;
-  --ink:#2A0E1A; --sage:#8FA68A; --line:rgba(74,20,40,.18);
+  --ink:#2A0E1A; --line:rgba(74,20,40,.18);
   --serif:'Lora',Georgia,'Times New Roman',serif;
   --sans:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
 }
 *{box-sizing:border-box;margin:0}
+html{color-scheme:dark;background:var(--wine)}
 html,body{min-height:100%}
+.app{min-height:100vh;min-height:100svh;background:var(--wine)!important;color:var(--paper)!important}
 body{background:var(--wine);color:var(--paper);font-family:var(--sans);line-height:1.5;
   padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 button,input,textarea{font:inherit;color:inherit}
@@ -31,9 +34,8 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
 .field input,.field textarea{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(244,182,192,.35);
   background:rgba(255,246,243,.07);color:var(--paper)}
 .field input::placeholder,.field textarea::placeholder{color:rgba(255,246,243,.45)}
-.field input[type=date],.field input[type=time]{color-scheme:dark}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;
+.field input[type=date]{color-scheme:dark}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;text-decoration:none;
   padding:14px 22px;border-radius:999px;font-weight:700;background:var(--petal);color:var(--wine);
   transition:transform .15s ease,background .15s ease}
 .btn:hover{background:#fbc9d1}
@@ -65,33 +67,47 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
 .envelope.open .seal{opacity:0;animation:none}
 .tap{margin-top:26px;opacity:.8}
 
-/* ---------- Invitation card ---------- */
+/* ---------- Cards ---------- */
 .card{background:var(--paper);color:var(--ink);border-radius:18px;padding:34px 26px 28px;
   box-shadow:0 30px 60px rgba(0,0,0,.4);animation:rise .7s cubic-bezier(.2,.8,.2,1)}
 @keyframes rise{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
 .card h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,7vw,2.2rem);line-height:1.18;color:var(--wine);margin-bottom:12px}
 .card .msg{font-family:var(--serif);font-style:italic;font-size:1.08rem;margin-bottom:22px}
 .details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:22px;display:grid;gap:8px}
+.details:empty{display:none}
 .details div{display:flex;gap:12px;align-items:baseline}
 .details dt{flex:0 0 74px;color:var(--wine-2);font-weight:700;font-size:.9rem}
 .details dd{margin:0;font-weight:600}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chips p{width:100%;font-weight:700;color:var(--wine-2);font-size:.9rem}
-.chip{border:1.5px solid var(--wine-2);background:transparent;color:var(--wine);padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:600}
-.chip[aria-pressed=true]{background:var(--wine);color:var(--paper);border-color:var(--wine)}
 .answers{position:relative;display:flex;gap:10px;flex-wrap:wrap;min-height:54px}
 .answers .btn{flex:1 1 120px;background:var(--wine);color:var(--paper)}
 .answers .btn:hover{background:var(--wine-2)}
-.answers .btn.soft{background:transparent;color:var(--wine);border:1.5px solid var(--wine-2)}
-.answers .btn.soft:hover{background:rgba(74,20,40,.07)}
+.answers .btn.soft,.result .btn.soft,.quiz .btn.soft{background:transparent;color:var(--wine);border:1.5px solid var(--wine-2)}
+.answers .btn.soft:hover,.result .btn.soft:hover,.quiz .btn.soft:hover{background:rgba(74,20,40,.07)}
 .dodge{transition:left .25s ease,top .25s ease}
 .dodge.fly{position:fixed;z-index:10;flex:none;width:auto}
+
+/* ---------- Quiz ---------- */
+.quiz .step{color:var(--wine-2);font-weight:700;font-size:.9rem;margin-bottom:6px}
+.quiz h2{margin-bottom:18px}
+.opts{display:grid;gap:10px;margin-bottom:18px}
+.optwrap{border:1.5px solid var(--wine-2);border-radius:14px;overflow:hidden}
+.opt{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--wine);
+  padding:14px 16px;font-weight:700;font-size:1.05rem;cursor:pointer}
+.opt:hover{background:rgba(74,20,40,.07)}
+.optwrap.on{background:var(--wine);border-color:var(--wine)}
+.optwrap.on .opt{color:var(--paper)}
+.optwrap a{display:block;padding:0 16px 12px;font-size:.88rem;color:var(--wine-2);font-weight:600}
+.optwrap.on a{color:var(--petal)}
+.quiz .btn{background:var(--wine);color:var(--paper)}
+.quiz .back{padding:8px 4px;background:none!important;border:0!important;color:var(--wine-2)!important;font-weight:600}
+
+/* ---------- Result ---------- */
 .result{text-align:center}
 .result .big{font-size:3rem;line-height:1;margin-bottom:10px}
 .result h2{margin-bottom:8px}
 .result p{margin-bottom:18px}
+.result .summary{text-align:left;margin:0 0 20px}
 .result .btn{background:var(--wine);color:var(--paper);margin-bottom:10px}
-.result .btn.soft{background:transparent;color:var(--wine);border:1.5px solid var(--wine-2)}
 .hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}
 .hearts span{position:absolute;bottom:-40px;animation:float linear forwards}
 @keyframes float{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
@@ -101,27 +117,33 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
 </style>
 </head>
 <body>
+<div class="app">
 
 <!-- ============ CREATOR ============ -->
 <main id="creator" class="creator hidden">
   <h1>Кездесуге шақыру жасау 💌</h1>
-  <p class="lead">Мәліметті толтырыңыз, сілтеме алыңыз да жіберіңіз. Ол ашып, жауап береді.</p>
+  <p class="lead">Мәліметті толтырыңыз, сілтеме алыңыз да жіберіңіз. Ол «Иә» десе, кафені және уақытты өзі таңдайды.</p>
 
   <div class="field"><label for="to">Кімге?</label>
     <input id="to" placeholder="Мысалы: Айым"></div>
   <div class="field"><label for="from">Кімнен?</label>
     <input id="from" placeholder="Мысалы: Фархат"></div>
-  <div class="row">
-    <div class="field"><label for="date">Күні</label><input id="date" type="date"></div>
-    <div class="field"><label for="time">Уақыты</label><input id="time" type="time" value="19:00"></div>
-  </div>
-  <div class="field"><label for="place">Қайда?</label>
-    <input id="place" placeholder="Мысалы: Сырдария жағалауы"></div>
-  <div class="field"><label for="plans">Не істейміз?</label>
-    <input id="plans" placeholder="кешкі ас, серуен, кино" value="кешкі ас, серуен, кино">
-    <small>Үтірмен бөліңіз. Ол біреуін таңдайды.</small></div>
+  <div class="field"><label for="date">Күні</label><input id="date" type="date"></div>
+
+  <div class="field"><label for="places">Кафе, ресторандар</label>
+    <textarea id="places" rows="4" placeholder="Әр жолға біреуден:&#10;Кафе атауы | карта сілтемесі&#10;Ресторан атауы"></textarea>
+    <small>Әр жолға бір орын. «|» белгісінен кейін 2GIS немесе Google Maps сілтемесін қоссаңыз, ол картадан көре алады (міндетті емес). Бір ғана орын жазсаңыз, сұрақ қойылмайды.</small></div>
+
+  <div class="field"><label for="times">Уақыт нұсқалары</label>
+    <input id="times" placeholder="18:00, 19:00, 20:00" value="18:00, 19:00, 20:00">
+    <small>Үтірмен бөліңіз. Біреу ғана болса, сұрақ қойылмайды.</small></div>
+
+  <div class="field"><label for="plans">Не істейміз? (міндетті емес)</label>
+    <input id="plans" placeholder="серуен, кино, тек әңгіме">
+    <small>Үтірмен бөліңіз. Бос қалдыруға болады.</small></div>
+
   <div class="field"><label for="text">Жылы сөз</label>
-    <textarea id="text" rows="3" placeholder="Сенімен бір кеш өткізгім келеді...">Сенімен бір кеш өткізгім келеді. Келесің бе?</textarea></div>
+    <textarea id="text" rows="3">Сенімен бір кеш өткізгім келеді. Келесің бе?</textarea></div>
   <div class="field"><label for="phone">Жауап келетін WhatsApp нөмірі</label>
     <input id="phone" inputmode="tel" placeholder="77012345678">
     <small>Міндетті емес. Нөмірді 7-мен бастап, плюссіз жазыңыз. Бос қалса, ол жауапты өзі таңдаған мессенджермен жібереді.</small></div>
@@ -137,7 +159,7 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
       <button class="btn full" id="copy">Көшіру</button>
       <button class="btn ghost full" id="preview">Алдын ала қарау</button>
     </div>
-    <p class="note">Бұл файлды сайтқа (Netlify, GitHub Pages) жүктегенде ғана сілтеме басқа адамның телефонында ашылады.</p>
+    <p class="note">Бұл файл сайтқа (GitHub Pages, Netlify) жүктелгенде ғана сілтеме басқа адамның телефонында ашылады.</p>
   </div>
 </main>
 
@@ -159,7 +181,6 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
     <h2 id="iTitle"></h2>
     <p class="msg" id="iMsg"></p>
     <dl class="details" id="iDetails"></dl>
-    <div class="chips" id="chips"></div>
     <div class="answers" id="answers">
       <button class="btn" id="yes">Иә, келемін</button>
       <button class="btn soft" id="maybe">Ойланамын</button>
@@ -167,26 +188,40 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
     </div>
   </article>
 
+  <article class="card quiz hidden" id="quiz">
+    <p class="step" id="qStep"></p>
+    <h2 id="qTitle"></h2>
+    <div class="opts" id="qOpts"></div>
+    <button class="btn back" id="qBack">← Артқа</button>
+  </article>
+
   <article class="card result hidden" id="result"></article>
 </main>
 
+</div>
 <div class="hearts" id="hearts" aria-hidden="true"></div>
 
 <script>
 (function(){
   const $ = id => document.getElementById(id);
-  let data = null, choice = '';
+  let data = null;
+  let steps = [], idx = 0, sel = {};
 
   /* ---------- helpers ---------- */
-  const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o))));
-  const dec = s => JSON.parse(decodeURIComponent(escape(atob(s))));
+  const enc = o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const dec = s => {
+    try{ s=decodeURIComponent(s); }catch(e){}
+    s=s.replace(/[^A-Za-z0-9_\-+\/]/g,'').replace(/-/g,'+').replace(/_/g,'/');
+    while(s.length%4) s+='=';
+    return JSON.parse(decodeURIComponent(escape(atob(s))));
+  };
   function fmtDate(d){
     if(!d) return '';
-    try{
-      return new Date(d+'T12:00:00').toLocaleDateString('kk-KZ',{weekday:'long',day:'numeric',month:'long'});
-    }catch(e){return d}
+    try{ return new Date(d+'T12:00:00').toLocaleDateString('kk-KZ',{weekday:'long',day:'numeric',month:'long'}); }
+    catch(e){ return d; }
   }
   function show(id){ ['creator','scene','invite'].forEach(x=>$(x).classList.toggle('hidden',x!==id)); window.scrollTo(0,0); }
+  function panel(id){ ['card','quiz','result'].forEach(x=>$(x).classList.toggle('hidden',x!==id)); window.scrollTo(0,0); }
   function hearts(){
     const box=$('hearts'); const sym=['♥','❤','💗','💖'];
     for(let i=0;i<22;i++){
@@ -201,22 +236,25 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
       setTimeout(()=>s.remove(),7000);
     }
   }
+  const safeUrl = u => /^https?:\/\//i.test(u||'') ? u : '';
 
   /* ---------- creator ---------- */
-  const d=$('date'); const t=new Date(); t.setDate(t.getDate()+1);
-  d.value=t.toISOString().slice(0,10);
+  const t=new Date(); t.setDate(t.getDate()+1);
+  $('date').value=t.toISOString().slice(0,10);
 
+  const list = s => s.split(',').map(x=>x.trim()).filter(Boolean).slice(0,8);
   function collect(){
+    const places=$('places').value.split('\n').map(l=>l.trim()).filter(Boolean).slice(0,8).map(l=>{
+      const i=l.indexOf('|');
+      return i<0 ? {n:l,u:''} : {n:l.slice(0,i).trim(),u:safeUrl(l.slice(i+1).trim())};
+    }).filter(p=>p.n);
     return {
-      to:$('to').value.trim(), from:$('from').value.trim(),
-      date:$('date').value, time:$('time').value, place:$('place').value.trim(),
-      plans:$('plans').value.split(',').map(s=>s.trim()).filter(Boolean).slice(0,6),
+      to:$('to').value.trim(), from:$('from').value.trim(), date:$('date').value,
+      places, times:list($('times').value), plans:list($('plans').value),
       text:$('text').value.trim(), phone:$('phone').value.replace(/\D/g,'')
     };
   }
-  function makeLink(){
-    return location.href.split('#')[0] + '#i=' + enc(collect());
-  }
+  const makeLink = () => location.href.split('#')[0] + '#i=' + enc(collect());
   $('make').onclick=()=>{
     $('linkText').textContent=makeLink();
     $('linkbox').classList.remove('hidden');
@@ -230,8 +268,9 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
   };
   $('preview').onclick=()=>{ data=collect(); startInvite(); };
 
-  /* ---------- invite ---------- */
+  /* ---------- envelope ---------- */
   function startInvite(){
+    data.places=data.places||[]; data.times=data.times||[]; data.plans=data.plans||[];
     $('sceneFrom').textContent = (data.from? data.from+' ': 'Біреу ')+'саған хат жазды';
     $('envelope').classList.remove('open');
     show('scene');
@@ -245,33 +284,21 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
   $('envelope').onclick=openEnvelope;
   $('envelope').onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();openEnvelope();} };
 
+  function addDetail(k,v,url){
+    const div=document.createElement('div');
+    const dt=document.createElement('dt'); dt.textContent=k;
+    const dd=document.createElement('dd'); dd.textContent=v;
+    div.append(dt,dd); $('iDetails').appendChild(div);
+  }
   function buildCard(){
     $('iTitle').textContent = data.to ? data.to+', сені кездесуге шақырамын' : 'Сені кездесуге шақырамын';
     $('iMsg').textContent = data.text || '';
-    const rows=[['Күні',fmtDate(data.date)],['Уақыты',data.time],['Орны',data.place]].filter(r=>r[1]);
     $('iDetails').innerHTML='';
-    rows.forEach(([k,v])=>{
-      const div=document.createElement('div');
-      const dt=document.createElement('dt'); dt.textContent=k;
-      const dd=document.createElement('dd'); dd.textContent=v;
-      div.append(dt,dd); $('iDetails').appendChild(div);
-    });
-    const chips=$('chips'); chips.innerHTML=''; choice='';
-    if(data.plans && data.plans.length){
-      const p=document.createElement('p'); p.textContent='Не істейміз? Біреуін таңда:'; chips.appendChild(p);
-      data.plans.forEach(pl=>{
-        const b=document.createElement('button');
-        b.className='chip'; b.textContent=pl; b.setAttribute('aria-pressed','false');
-        b.onclick=()=>{
-          choice = choice===pl ? '' : pl;
-          chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.textContent===choice)));
-        };
-        chips.appendChild(b);
-      });
-    }
-    $('result').classList.add('hidden');
-    $('card').classList.remove('hidden');
+    if(data.date) addDetail('Күні',fmtDate(data.date));
+    if(data.times.length===1) addDetail('Уақыты',data.times[0]);
+    if(data.places.length===1) addDetail('Орны',data.places[0].n);
     resetNo();
+    panel('card');
     show('invite');
   }
 
@@ -281,35 +308,76 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
   function resetNo(){ dodges=0; no.className='btn soft dodge'; no.removeAttribute('style'); no.textContent=noTexts[0]; }
   function run(e){
     if(dodges>=3) return;
-    e && e.preventDefault && e.preventDefault();
+    if(e && e.preventDefault) e.preventDefault();
     dodges++;
     no.textContent=noTexts[dodges];
     no.classList.add('fly');
     const w=no.offsetWidth||140, h=no.offsetHeight||50;
     no.style.left=Math.max(8,Math.random()*(innerWidth-w-16))+'px';
     no.style.top=Math.max(8,Math.random()*(innerHeight-h-16))+'px';
-    if(dodges>=3){
-      no.className='btn soft dodge';
-      no.removeAttribute('style');
-    }
+    if(dodges>=3){ no.className='btn soft dodge'; no.removeAttribute('style'); }
   }
   no.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') run(e); });
   no.addEventListener('touchstart',run,{passive:false});
-  no.addEventListener('click',()=>{
-    if(dodges>=3) answer('yes');
-    else run();
-  });
+  no.addEventListener('click',()=>{ if(dodges>=3) startQuiz(); else run(); });
 
-  $('yes').onclick=()=>answer('yes');
-  $('maybe').onclick=()=>answer('maybe');
+  $('yes').onclick=startQuiz;
+  $('maybe').onclick=()=>finish('maybe');
 
-  /* ---------- answer ---------- */
-  function answer(kind){
+  /* ---------- quiz: қайда және қашан ---------- */
+  function startQuiz(){
+    sel={
+      place: data.places.length===1 ? data.places[0] : null,
+      time:  data.times.length===1 ? data.times[0] : '',
+      plan:  data.plans.length===1 ? data.plans[0] : ''
+    };
+    steps=[];
+    if(data.places.length>1) steps.push({key:'place',q:'Қайда барамыз?',opts:data.places});
+    if(data.times.length>1)  steps.push({key:'time', q:'Қай уақытта?', opts:data.times.map(n=>({n}))});
+    if(data.plans.length>1)  steps.push({key:'plan', q:'Не істейміз?', opts:data.plans.map(n=>({n}))});
+    idx=0;
+    if(!steps.length) return finish('yes');
+    renderStep();
+  }
+  function renderStep(){
+    const s=steps[idx];
+    $('qStep').textContent=`${idx+1} / ${steps.length}`;
+    $('qTitle').textContent=s.q;
+    const box=$('qOpts'); box.innerHTML='';
+    s.opts.forEach(o=>{
+      const w=document.createElement('div'); w.className='optwrap';
+      if(sel[s.key] && (sel[s.key].n||sel[s.key])===o.n) w.classList.add('on');
+      const b=document.createElement('button'); b.className='opt'; b.textContent=o.n;
+      b.onclick=()=>{
+        sel[s.key] = s.key==='place' ? o : o.n;
+        w.classList.add('on');
+        setTimeout(()=>{ if(idx<steps.length-1){ idx++; renderStep(); } else finish('yes'); },220);
+      };
+      w.appendChild(b);
+      if(o.u){
+        const a=document.createElement('a'); a.href=o.u; a.target='_blank'; a.rel='noopener'; a.textContent='Картадан көру';
+        w.appendChild(a);
+      }
+      box.appendChild(w);
+    });
+    $('qBack').textContent = idx===0 ? '← Хатқа оралу' : '← Артқа';
+    panel('quiz');
+  }
+  $('qBack').onclick=()=>{ if(idx===0) panel('card'); else { idx--; renderStep(); } };
+
+  /* ---------- result ---------- */
+  function finish(kind){
     const who=data.to||'Мен';
-    const when=[fmtDate(data.date),data.time].filter(Boolean).join(', ');
+    const dateS=fmtDate(data.date);
+    const placeName = sel.place ? sel.place.n : '';
+    const placeUrl  = sel.place ? sel.place.u : '';
     let text;
     if(kind==='yes'){
-      text=`${who}: иә, келемін! 💗 ${when}${data.place?', '+data.place:''}.`+(choice?` Таңдауым: ${choice}.`:'');
+      text=`${who}: иә, келемін! 💗`;
+      if(dateS) text+=`\nКүні: ${dateS}`;
+      if(sel.time) text+=`\nУақыты: ${sel.time}`;
+      if(placeName) text+=`\nОрны: ${placeName}`+(placeUrl?` (${placeUrl})`:'');
+      if(sel.plan) text+=`\nБағдарлама: ${sel.plan}`;
     } else {
       text=`${who}: ойланып көрейін 🙂 Жақында жауап беремін.`;
     }
@@ -320,9 +388,22 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
     const r=$('result'); r.innerHTML='';
     const big=document.createElement('div'); big.className='big'; big.textContent = kind==='yes'?'💗':'🌙';
     const h=document.createElement('h2'); h.textContent = kind==='yes'?'Керемет!':'Жарайды, күтемін';
+    r.append(big,h);
+
+    if(kind==='yes'){
+      const dl=document.createElement('dl'); dl.className='details summary';
+      const rows=[['Күні',dateS],['Уақыты',sel.time],['Орны',placeName],['Бағдарлама',sel.plan]].filter(x=>x[1]);
+      rows.forEach(([k,v])=>{
+        const d=document.createElement('div');
+        const dt=document.createElement('dt'); dt.textContent=k;
+        const dd=document.createElement('dd'); dd.textContent=v;
+        d.append(dt,dd); dl.appendChild(d);
+      });
+      r.appendChild(dl);
+    }
     const p=document.createElement('p');
     p.textContent = kind==='yes' ? 'Жауабыңды жіберіп жібер, ол күтіп отыр.' : 'Дайын болғанда хабарла.';
-    r.append(big,h,p);
+    r.appendChild(p);
 
     const a1=document.createElement('a'); a1.className='btn full'; a1.href=wa; a1.target='_blank'; a1.rel='noopener'; a1.textContent='WhatsApp арқылы жіберу';
     r.appendChild(a1);
@@ -334,8 +415,7 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
     c.onclick=async()=>{ try{await navigator.clipboard.writeText(text); c.textContent='Көшірілді ✓';}catch(e){prompt('Көшіріңіз:',text);} };
     r.appendChild(c);
 
-    $('card').classList.add('hidden'); r.classList.remove('hidden');
-    window.scrollTo(0,0);
+    panel('result');
     if(kind==='yes') hearts();
   }
 
@@ -343,7 +423,7 @@ main{max-width:520px;margin:0 auto;padding:28px 20px 56px}
   const m=location.hash.match(/^#i=(.+)$/);
   if(m){
     try{ data=dec(m[1]); startInvite(); }
-    catch(e){ show('creator'); }
+    catch(e){ show('creator'); alert('Сілтеме толық емес. Жіберушіден сілтемені қайта жіберуін сұраңыз.'); }
   } else show('creator');
 })();
 </script>
